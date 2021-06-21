@@ -53,16 +53,25 @@ export default {
     }
   },
   methods: {
+    //登陆事件
     login(){
       this.$refs.loginform.validate( async valid=>{
         console.log(valid)
         if (!valid) return;
-        const {data:res} = await this.$http.get("api/user/index");
+        console.log(this.loginform);
+        // const {data:res} = await this.$http.post("api/test/login",this.loginform);//访问后台/**,this.loginform**/
+        // const {data:res} = await this.$http.get("api/user/index");
+        const {data:res} = await axios.post("api/login",this.loginform);
+        // const {data:res} = await this.$http.get("api/test");
         console.log(res);
-        if (res.code=="1")
-          this.$message.success("操作成功！");
-        else
-          this.$message.error("操作失败！");
+        if (res.code == "1"){
+          window.sessionStorage.setItem("user",res.data);
+          this.$message.success("操作成功！");//操作提示
+          this.$router.push({path:'/home'});//页面跳转
+        }
+        else{
+          this.$message.error("操作失败！");//失败提示
+        }
       });
       console.log("success")
     },

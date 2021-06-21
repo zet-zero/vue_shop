@@ -18,6 +18,7 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 //挂载axios
 Vue.prototype.$http = axios
+// Vue.use(axios)
 //访问根路径
 // axios.defaults.baseURL = "http://localhost:8080"
 
