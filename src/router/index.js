@@ -5,6 +5,10 @@ import VueRouter from 'vue-router'
 import Login from '../components/Login.vue'
 //Home首页
 import Home from '../components/Home.vue'
+//Welcome
+import Welcome from "@/components/Welcome";
+//BlogList
+import BlogList from "@/components/Blog/Bloglist"
 Vue.use(VueRouter)
 
 const routes = [
@@ -18,21 +22,19 @@ const routes = [
   },
   {
     path: '/home',
-    component: Home
+    component: Home,
+    redirect: '/welcome',
+    children:[
+      {
+        path: '/welcome',
+        component: Welcome,
+      },
+      {
+        path: '/blog/list',
+        component: BlogList,
+      },
+    ]
   },
-  // {
-  //   path: '/',
-  //   name: 'Home',
-  //   component: Home
-  // },
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  // }
 ]
 
 const router = new VueRouter({

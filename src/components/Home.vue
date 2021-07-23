@@ -1,31 +1,38 @@
 <template>
   <el-container class="home-container">
+    <!--头部栏-->
     <el-header>
       <div>
 <!--        <img src="{#user.avatar}" alt=""/>-->
         <img src="../assets/logo.jpg" alt="" class="home-logo"/>
         <span>博客主页面</span>
       </div>
-      <div  @click="gethome">
-        <i class="el-icon-s-home"></i>
+      <div class="test" @click="goHome('/welcome')">
+        <i class="el-icon-s-home">
+        </i>
       </div>
     </el-header>
 
-
+    <!--侧边栏-->
     <el-container>
-      <el-aside width="200px">
-        <el-menu background-color="#545c64" text-color="#fff" active-text-color="#409eff">
+      <el-aside :width="isCollapse?'64px':'200px'">
+        <div @click="toGgleColl" class="toggle-button">
+          <i class="el-icon-s-fold">
+          </i>
+        </div>
+        <el-menu background-color="#545c64" text-color="#fff" active-text-color="#409eff"
+                 :collapse="isCollapse" :collapse-transition="true" :default-active="active" :router="true">
           <el-submenu index="1">
             <template slot="title">
             <i class="el-icon-s-order"></i>
             <span>博客管理</span>
             </template>
           <el-menu-item-group>
-            <el-menu-item index="1-1">
+            <el-menu-item index="/addblog">
               <i class="el-icon-edit"></i>
               博客新增
             </el-menu-item>
-            <el-menu-item index="1-2">
+            <el-menu-item index="/blog/list" @click="saveNavState('/blog/list')">
               <i class="el-icon-document"></i>
               博客列表
             </el-menu-item>
@@ -47,21 +54,19 @@
             </el-menu-item>
           </el-menu-item-group>
           </el-submenu>
-            <el-menu-item index="1-4-1" @click="logout">安全退出</el-menu-item>
+          <el-menu-item index="3" @click="logout">
+              <i class="el-icon-delete"></i>
+              <span>安全退出</span>
+          </el-menu-item>
         </el-menu>
 <!--        <el-button type="info" round @click="logout">安全退出</el-button>-->
       </el-aside>
+      <!--主页面栏-->
       <el-container>
         <el-main>
-          <el-timeline>
-            <el-timeline-item timestamp="2018/4/12" placement="top">
-              <el-card>
-                <h4>更新 Github 模板</h4>
-                <p>王小虎 提交于 2018/4/12 20:46</p>
-              </el-card>
-            </el-timeline-item>
-          </el-timeline>
+          <router-view></router-view>
         </el-main>
+        <!--脚部栏-->
         <el-footer>Footer</el-footer>
       </el-container>
     </el-container>
@@ -71,20 +76,45 @@
 <script>
 export default {
   data() {
-    return {
-      isCollapse: true
-    };
+    return{
+      //menu列表
+      menuList:[],
+      isCollapse: false,
+      active: '/welcome',
+    }
   },
-  methods:{
-    logout(){
+  //onload 事件
+  created() {
+    //查询menuList
+    this.getMenuList();
+    this.active = window.sessionStorage.getItem('active');
+  },
+  methods: {
+    //安全退出方法
+    logout() {
       window.sessionStorage.clear();//清除session
       this.$router.push("/login");//回到首页
     },
-    gethome(){
-      this.$router.push("/home");
+    //获取导航菜单方法
+    getMenuList() {
+      console.log("success");
+    },
+    goHome(active) {
+      window.sessionStorage.setItem("active",active);//存放在session之中
+      this.active = active;
+      this.$router.push({path: '/home'});
+    },
+    test() {
+      console.log("test");
+    },
+    toGgleColl() {
+      this.isCollapse = !this.isCollapse;
+    },
+    async saveNavState(active) {
+      window.sessionStorage.setItem("active", active);//存放在session之中
+      this.active = active;
     },
   }
-
 }
 </script>
 
@@ -106,7 +136,6 @@ export default {
   padding-left: 0%;
   color: cornsilk;
   font-size: 20px;
-  display: flex;
   align-items: center;
 }
 /*脚样式*/
@@ -123,6 +152,9 @@ export default {
   text-align: center;
   line-height: 200px;
 }
+.el-menu{
+  border-right: none;
+}
 /*主体样式*/
 .el-main {
   background-color: #eaedf1;
@@ -132,5 +164,16 @@ export default {
 }
 .home-container{
 height: 100%;
+}
+.test{
+  cursor: pointer;
+}
+.toggle-button{
+  background-color: #4A5064;
+  font-size: 10px;
+  line-height: 24px;
+  color: #fff;
+  letter-spacing: 0.2em;
+  cursor: pointer;
 }
 </style>

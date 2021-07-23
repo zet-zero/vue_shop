@@ -59,13 +59,11 @@ export default {
         console.log(valid)
         if (!valid) return;
         console.log(this.loginform);
-        // const {data:res} = await this.$http.post("api/test/login",this.loginform);//访问后台/**,this.loginform**/
-        // const {data:res} = await this.$http.get("api/user/index");
         const {data:res} = await axios.post("api/login",this.loginform);
         // const {data:res} = await this.$http.get("api/test");
         console.log(res);
         if (res.code == "1"){
-          window.sessionStorage.setItem("user",res.data);
+          window.sessionStorage.setItem("user",JSON.stringify(res.data));
           this.$message.success("操作成功！");//操作提示
           this.$router.push({path:'/home'});//页面跳转
         }
