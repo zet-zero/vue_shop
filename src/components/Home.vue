@@ -71,7 +71,13 @@
           <router-view></router-view>
         </el-main>
         <!--脚部栏-->
-        <el-footer>Footer</el-footer>
+        <el-footer v-show="footerHidden">
+          <el-pagination
+              small
+              layout="prev, pager, next"
+              :total="50">
+          </el-pagination>
+        </el-footer>
       </el-container>
     </el-container>
   </el-container>
@@ -85,6 +91,7 @@ export default {
       menuList:[],
       isCollapse: false,
       active: '/welcome',
+      footerHidden: false,
     }
   },
   //onload 事件

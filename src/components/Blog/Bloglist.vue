@@ -1,25 +1,27 @@
 <template>
 <div class="justify-content: flex-end;">
-  <el-card>
+
+<!--面包屑-->
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>博客列表</el-breadcrumb-item>
-
-      <el-row :gutter="5">
-        <el-col :span="10">
-          <!-- 搜索添加 -->
-          <el-input placeholder="请输入搜索内容">
-            <el-button slot="append" icon="el-icon-search"></el-button>
-          </el-input>
-        </el-col>
-      </el-row>
     </el-breadcrumb>
+  <el-card>
+  <!--搜索区域-->
+  <el-row :gutter="25">
+    <el-col :span="10">
+      <!-- 搜索添加 -->
+      <el-input placeholder="请输入搜索内容" size="mini" >
+        <el-button slot="append" icon="el-icon-search"></el-button>
+      </el-input>
+    </el-col>
+  </el-row>
   </el-card>
 <!--  v-for="item in blogList" :key="item.id"-->
-  <div style="width:100%;overflow: hidden;height:550px;">
-    <el-scrollbar style="height:100%">
-            <el-timeline v-for="item in blogList" :key="item.created" style="left: 50%">
-              <el-timeline-item :timestamp="item.created" placement="top">
+  <div style="width:100%;overflow: hidden;height:550px;margin: auto;" >
+    <el-scrollbar style="height:100%" aria-hidden="true">
+            <el-timeline v-for="item in blogList" :key="item.created">
+              <el-timeline-item :timestamp="item.created" placement="top" type="info" icon="el-icon-more">
                 <el-card>
                   <h4>{{ item.title }}</h4>
                   <p>{{item.description}}</p>
