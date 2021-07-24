@@ -13,6 +13,7 @@
       </div>
     </el-header>
 
+
     <!--侧边栏-->
     <el-container>
       <el-aside :width="isCollapse?'64px':'200px'">
@@ -30,12 +31,14 @@
             </template>
           <el-menu-item-group>
             <el-menu-item index="/blog/list" @click="saveNavState('/blog/list')">
+              <template slot="title">
               <i class="el-icon-document"></i>
-              博客列表
+              <span>博客列表</span>
+              </template>
             </el-menu-item>
             <el-menu-item index="/addblog">
               <i class="el-icon-edit"></i>
-              博客新增
+              <span>博客新增</span>
             </el-menu-item>
           </el-menu-item-group>
           </el-submenu>
@@ -151,7 +154,6 @@ export default {
 .el-aside {
   background-color: #333744;
   color: #333;
-  text-align: center;
   line-height: 200px;
 }
 .el-menu{
@@ -177,5 +179,6 @@ height: 100%;
   color: #fff;
   letter-spacing: 0.2em;
   cursor: pointer;
+  text-align: center;
 }
 </style>
