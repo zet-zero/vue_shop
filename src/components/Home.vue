@@ -110,6 +110,7 @@ export default {
     },
     toGgleColl() {
       this.isCollapse = !this.isCollapse;
+      console.log(this.isCollapse);
     },
     async saveNavState(active) {
       window.sessionStorage.setItem("active", active);//存放在session之中
