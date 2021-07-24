@@ -17,8 +17,9 @@
     <el-container>
       <el-aside :width="isCollapse?'64px':'200px'">
         <div @click="toGgleColl" class="toggle-button">
-          <i class="el-icon-s-fold">
+          <i class="el-icon-s-fold" v-show="!isCollapse">
           </i>
+          <i class="el-icon-s-unfold" v-show="isCollapse"></i>
         </div>
         <el-menu background-color="#545c64" text-color="#fff" active-text-color="#409eff"
                  :collapse="isCollapse" :collapse-transition="true" :default-active="active" :router="true">
@@ -28,13 +29,13 @@
             <span>博客管理</span>
             </template>
           <el-menu-item-group>
-            <el-menu-item index="/addblog">
-              <i class="el-icon-edit"></i>
-              博客新增
-            </el-menu-item>
             <el-menu-item index="/blog/list" @click="saveNavState('/blog/list')">
               <i class="el-icon-document"></i>
               博客列表
+            </el-menu-item>
+            <el-menu-item index="/addblog">
+              <i class="el-icon-edit"></i>
+              博客新增
             </el-menu-item>
           </el-menu-item-group>
           </el-submenu>
